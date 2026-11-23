@@ -64,7 +64,7 @@ class Stock:
         for product in self.stock_items.values():
             print(f"{product.name:<15} £{product.price:<8.2f} {product.quantity:<13} {product.reorder:<13} £{product.stock_value():.2f}")
             running_total += product.stock_value()  
-        print(f"\n\t\t\t\tTotal Stock Value:    {running_total:.2f}\n")
+        print(f"\n\t\t\t\tTotal Stock Value:    £{running_total:.2f}\n")
 
 
     def reorder_level(self):
