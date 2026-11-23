@@ -19,22 +19,24 @@ while True:
 
     if choice == "sell":
         check = input("Please enter the name of the product to sell: ")
-        if stock.check_product(check):
+        product = stock.check_product(check)
+        if product is not None:
             check_amount = input("Please enter the amount needed: ")
-            if Product.check_stock(check_amount):
-                Product.down_stock(check_amount)
+            if product.check_stock(check_amount):
+                product.down_stock(check_amount)
                 print("Order Processed")
-                if Product.level_is_low():
+                if product.level_is_low():
                     print("Warning Stock is Low")
 
             else:
-                print(f"Not enough stock only {Product.quantity} left")
+                print(f"Not enough stock only {product.quantity} left")
         
 
     elif choice == "recieve":
         check_name = input("Please enter the product name that has been recieved: ").lower().strip()
-        if stock.check_product(check_name):
-            Product.add_stock(get_value())
+        product = stock.check_product(check_name)
+        if product is not None:
+            product.add_stock(get_value())
         
 
     elif choice == "add":
