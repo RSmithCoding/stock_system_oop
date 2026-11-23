@@ -44,32 +44,38 @@ class Stock:
             "staplers": Product("staplers", 6.00, 4, 5)
         }
 
-    def check_product(self):
+    def check_product(self, name):
         """Checks to see if the product exists"""
+        if name in self.stock_items:
+            return self.stock_items[name]
+        else:
+            print(f"Sorry {name} is not an item that is in stock.")
+            return None
     
-    def add_new_product(self):
+    def add_new_product(self, name, price, quantity, reorder):
         """Add new products to stock"""
+        self.stock_items[name] = Product(name, price, quantity, reorder)
+        print(f"{name} is added to stock")
 
     def report(self):
         """List all stock with quantities and stock values along with total value"""
+        running_total = 0
+        print("\nName\t\tPrice\tQuantity   Reorder Level   Stock Value\n")
+        for product in self.stock_items.values():
+            print(f"{product.name:<15} £{product.price:<8.2f} {product.quantity:<13} {product.reorder:<13} £{product.stock_value():.2f}")
+            running_total += product.stock_value()  
+        print(f"\n\t\t\t\tTotal Stock Value:    {running_total:.2f}\n")
+
 
     def reorder_level(self):
         """Lists only the stock at or below reorder level"""
-
-
-
-"""Testing"""
-
-stock = Stock()
-
-pens = stock.stock_items["pens"]
-
-print(pens.quantity)
-
-pens.down_stock(35)
-print(pens.quantity)
-print(pens.level_is_low())
-
-print(pens.check_stock(100))
-
-print(pens.stock_value())
+        flag = 0 
+        for product in self.stock_items.values():
+            if product.level_is_low():
+                print(f"\n{product.name:<10}x {product.quantity:<2} in stock - reorder level: {product.reorder}")
+                flag += 1        
+        
+        if flag == 0:
+            print(f"There are no products low on stock\n")
+        else:
+            print(f"\nTotal number of orders to make for stock: {flag}\n")    
