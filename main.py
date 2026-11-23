@@ -60,7 +60,8 @@ while True:
         check_name = input("Please enter the product name that has been received: ").lower().strip()
         product = stock.check_product(check_name)
         if product is not None:
-            amount_to_add = product.add_stock(get_value("quantity"))
+            amount_to_add = get_value("quantity")
+            product.add_stock(amount_to_add)
             print(f"{amount_to_add} x {product.name} have been added to stock")
 
     elif choice == "add":
