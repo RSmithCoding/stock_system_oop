@@ -1,6 +1,23 @@
 from stock import Stock
+from history import History
 
 stock = Stock()
+history = History()
+
+def get_status():
+
+    while True:
+
+        ask = input("Please choose from the following options or enter for 'all' (sales / deliveries): ").lower().strip()
+
+        if ask == "sales":
+            return ask
+        elif ask == "deliveries":
+            return ask
+        elif ask == "":
+            return "all"
+        else:
+            print("Please type a valid choice (sales / deliveries) or enter for 'all'")
 
 def get_name():
 
@@ -40,7 +57,7 @@ def get_value(prompt):
 
 while True:
 
-    choice = input("Please enter one of the following (sell / receive / add / report / reorder / quit): ").lower().strip()
+    choice = input("Please enter one of the following (sell / receive / add / report / reorder / history / quit): ").lower().strip()
 
     if choice == "sell":
         check = input("Please enter the name of the product to sell: ").lower().strip()
@@ -77,6 +94,10 @@ while True:
 
     elif choice == "reorder":
         stock.reorder_level()
+
+    elif choice == "history":
+        status = get_status()
+        history.print_history(status)    
 
     elif choice == "quit":
         break
