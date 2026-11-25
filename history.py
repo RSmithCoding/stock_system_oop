@@ -32,15 +32,20 @@ class History:
 
     def print_history(self, status= "all"):
         """Prints order history depending on 'status' being delivery, sale or all"""
-        if not self.history_items:
-            print("Sorry no history to show")
-        
-        else:    
-            for item in self.history_items:
-                if status == "all" or item.status == status:
-                    print(item)
-        
+
+        status_match = []    
+        for item in self.history_items:
+            if status == "all" or item.status == status:
+                status_match.append(item)
+
+        if status_match:
+            for match in status_match:
+                print(match)
+
             print(f"\n\t\t\t\t\t    Grand Total: £ {self.grand_total(status):.2f}\n")
+        
+        else:
+            print("No history available for the selected status")
 
     def grand_total(self, status= "all"):
         """Total of all orders sold"""

@@ -10,12 +10,10 @@ def get_status():
 
         ask = input("Please choose which history report or enter for 'all' (sale / delivery): ").lower().strip()
 
-        if ask == "sale":
+        if ask == "": 
+            return "all" 
+        elif ask == "sale" or "delivery":
             return ask
-        elif ask == "delivery":
-            return ask
-        elif ask == "":
-            return "all"
         else:
             print("Please type a valid choice (sale / delivery) or enter for 'all'")
 
@@ -105,4 +103,4 @@ while True:
         break
 
     else:
-        print("Sorry please choose from the following (sell / receive / add / report / reorder / quit)")  
+        print("Sorry please choose from the following (sell / receive / add / report / reorder / history / quit)")  
