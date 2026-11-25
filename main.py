@@ -66,7 +66,8 @@ while True:
             check_amount = get_value("quantity")
             if product.check_stock(check_amount):
                 product.down_stock(check_amount)
-                print("Order Processed")
+                history.add_history("sale", product.name, product.price, check_amount)
+                print("Order Processed and added to history")
                 if product.level_is_low():
                     print("Warning Stock is Low")
 
@@ -79,7 +80,8 @@ while True:
         if product is not None:
             amount_to_add = get_value("quantity")
             product.add_stock(amount_to_add)
-            print(f"{amount_to_add} x {product.name} have been added to stock")
+            history.add_history("delivery", product.name, product.price, amount_to_add)
+            print(f"{amount_to_add} x {product.name} have been added to stock and saved in history")
 
     elif choice == "add":
 
@@ -103,4 +105,4 @@ while True:
         break
 
     else:
-            print("Sorry please choose from the following (sell / receive / add / report / reorder / quit)")  
+        print("Sorry please choose from the following (sell / receive / add / report / reorder / quit)")  
