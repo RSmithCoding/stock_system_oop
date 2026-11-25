@@ -8,16 +8,16 @@ def get_status():
 
     while True:
 
-        ask = input("Please choose from the following options or enter for 'all' (sales / deliveries): ").lower().strip()
+        ask = input("Please choose which history report or enter for 'all' (sale / delivery): ").lower().strip()
 
-        if ask == "sales":
+        if ask == "sale":
             return ask
-        elif ask == "deliveries":
+        elif ask == "delivery":
             return ask
         elif ask == "":
             return "all"
         else:
-            print("Please type a valid choice (sales / deliveries) or enter for 'all'")
+            print("Please type a valid choice (sale / delivery) or enter for 'all'")
 
 def get_name():
 
