@@ -16,9 +16,10 @@ def load_stock(stock):
     try:
         with open(FILE_PATH, "r") as file:
             loaded_data = json.load(file)
-            print("Loading stock from backup..")
+            print("\nLoading stock from backup..\n")
             for item in loaded_data:
                 stock.add_new_product(item['name'], item['price'], item['quantity'], item['reorder'])
+            print("\n..done\n")
     except (FileNotFoundError, json.JSONDecodeError):
         print("Stock backup file not found or corrupt, creating a new backup with default data..")
         data = stock.stock_to_dict()
@@ -35,10 +36,11 @@ def load_history(history):
     try:
         with open(FILE_PATH2, "r") as file:
             loaded_data = json.load(file)
-            print("Loading history from backup..")
+            print("\nLoading history from backup..\n")
         for item in loaded_data:
             saved_date = datetime.fromisoformat(item['date'])
             history.add_history(item['status'], item['name'], item['price'], item['quantity'], saved_date)
-            
+        print("\n..done\n")
+
     except (FileNotFoundError, json.JSONDecodeError):
         print("History Backup file not found or corrupt, a new backup will be created with any history from to-day.")
