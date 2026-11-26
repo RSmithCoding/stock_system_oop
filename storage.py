@@ -1,9 +1,10 @@
 import json
 
 FILE_PATH = "stock_backup.json"
+FILE_PATH2 = "history_backup.json"
 
 def save_stock(data):
-    """Save stock to a dictionary and write to file."""
+    """Write saved stock dictionary to file."""
 
     with open(FILE_PATH, "w") as file:
         json.dump(data, file, indent= 4)
@@ -22,8 +23,11 @@ def load_stock(stock):
         data = stock.stock_to_dict()
         save_stock(data)
 
-def save_history():
-    pass
+def save_history(data):
+    """Write saved history dictionary to file"""
+
+    with open(FILE_PATH2, "w") as file:
+        json.dump(data, file, indent=4)
 
 def load_history():
     pass

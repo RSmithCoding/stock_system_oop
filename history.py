@@ -3,8 +3,11 @@ from datetime import datetime
 class HistoryItem:
     """Each history item"""
 
-    def __init__(self, status, name, price, quantity):
-
+    def __init__(self, status, name, price, quantity, date=None):
+        if date is None:
+            self.date = datetime.now()
+        else:
+            self.date = date
         self.date = datetime.now()
         self.status = status
         self.name = name
@@ -17,6 +20,17 @@ class HistoryItem:
     def line_total(self):
         """Total of each order line"""
         return (self.price * self.quantity)
+    
+    def to_dict(self):
+        """Returns items as a dictionary ready to be saved"""
+        date = self.date.isoformat()
+        return {
+            "date": date,
+            "status": self.status,
+            "name": self.name,
+            "price": self.price,
+            "quantity": self.quantity
+        }
 
 class History:
     """All order history"""
@@ -57,3 +71,9 @@ class History:
                 
         return total
 
+    def history_to_dict(self):
+        """Iterates through all items and passes them through to_dict then adds each product dictionary to a list"""
+        saved_history = []
+        for item in self.history_items.values():
+            saved_history.append(item.to_dict())
+        return saved_history

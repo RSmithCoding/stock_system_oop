@@ -107,6 +107,7 @@ while True:
 
     elif choice == "quit":
         storage.save_stock(stock.stock_to_dict())
+        storage.save_history(history.history_to_dict())
         break
 
     else:
