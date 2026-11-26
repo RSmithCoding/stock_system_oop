@@ -36,11 +36,11 @@ def load_history(history):
     try:
         with open(FILE_PATH2, "r") as file:
             loaded_data = json.load(file)
-            print("\nLoading history from backup..\n")
+            print("Loading history from backup..\n")
         for item in loaded_data:
             saved_date = datetime.fromisoformat(item['date'])
             history.add_history(item['status'], item['name'], item['price'], item['quantity'], saved_date)
-        print("\n..done\n")
+        print("..done\n")
 
     except (FileNotFoundError, json.JSONDecodeError):
         print("History Backup file not found or corrupt, a new backup will be created with any history from to-day.")

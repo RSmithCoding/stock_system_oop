@@ -14,7 +14,7 @@ class HistoryItem:
         self.quantity = int(quantity)
 
     def __str__(self):
-        return(f"{self.date:%d/%m/%Y %H:%M} {self.status:<10} {self.name:<15} £ {self.price:<6.2f} {self.quantity:<3} £ {self.line_total():.2f}")    
+        return(f"{self.date:%d/%m/%Y %H:%M} {self.status:<10} {self.name:<20} £ {self.price:<6.2f} {self.quantity:<3} £ {self.line_total():.2f}")    
         
     def line_total(self):
         """Total of each order line"""
@@ -40,7 +40,7 @@ class History:
 
     def add_history(self, status, name, price, quantity, date=None):
         """Adds a sale to the history list"""
-        self.history_items.append(HistoryItem(status, name, price, quantity))
+        self.history_items.append(HistoryItem(status, name, price, quantity, date))
    
 
     def print_history(self, status= "all"):

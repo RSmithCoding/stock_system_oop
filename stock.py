@@ -68,11 +68,11 @@ class Stock:
     def report(self):
         """List all stock with quantities and stock values along with total value"""
         running_total = 0
-        print("\nName\t\tPrice\tQuantity   Reorder Level   Stock Value\n")
+        print("\nName\t\t     Price\tQuantity     Reorder Level     Stock Value\n")
         for product in self.stock_items.values():
-            print(f"{product.name:<15} £{product.price:<8.2f} {product.quantity:<13} {product.reorder:<13} £{product.stock_value():.2f}")
+            print(f"{product.name:<20} £{product.price:<12.2f} {product.quantity:<14} {product.reorder:<14} £{product.stock_value():.2f}")
             running_total += product.stock_value()  
-        print(f"\n\t\t\t\tTotal Stock Value:    £{running_total:.2f}\n")
+        print(f"\n\t\t\t\t           Total Stock Value:    £{running_total:.2f}\n")
 
 
     def reorder_level(self):
@@ -80,7 +80,7 @@ class Stock:
         flag = 0 
         for product in self.stock_items.values():
             if product.level_is_low():
-                print(f"\n{product.name:<10}x {product.quantity:<2} in stock - reorder level: {product.reorder}")
+                print(f"\n{product.name:<20}x {product.quantity:<2} in stock - reorder level: {product.reorder}")
                 flag += 1        
         
         if flag == 0:

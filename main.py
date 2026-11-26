@@ -71,6 +71,7 @@ while True:
                 history.add_history("sale", product.name, product.price, check_amount)
                 print("Order Processed and added to history")
                 storage.save_stock(stock.stock_to_dict())
+                storage.save_history(history.history_to_dict())
                 if product.level_is_low():
                     print("Warning Stock is Low")
 
@@ -86,6 +87,7 @@ while True:
             history.add_history("delivery", product.name, product.price, amount_to_add)
             print(f"{amount_to_add} x {product.name} have been added to stock and saved in history")
             storage.save_stock(stock.stock_to_dict())
+            storage.save_history(history.history_to_dict())
 
     elif choice == "add":
 
@@ -109,6 +111,8 @@ while True:
     elif choice == "quit":
         storage.save_stock(stock.stock_to_dict())
         storage.save_history(history.history_to_dict())
+        print("Stock backed up")
+        print("History backed up")
         break
 
     else:
