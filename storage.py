@@ -38,7 +38,7 @@ def load_history(history):
             print("Loading history from backup..")
         for item in loaded_data:
             saved_date = datetime.fromisoformat(item['date'])
-            history.add_history(item['status'], item['name'], item['price'], item['quantity'], item[saved_date])
+            history.add_history(item['status'], item['name'], item['price'], item['quantity'], saved_date)
             
     except (FileNotFoundError, json.JSONDecodeError):
         print("History Backup file not found or corrupt, a new backup will be created with any history from to-day.")
