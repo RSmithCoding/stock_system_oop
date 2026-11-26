@@ -34,6 +34,14 @@ class Product:
         product_value = self.quantity * self.price
         return product_value
 
+    def to_dict(self):
+        """Returns products as a dictionary ready to be saved"""
+        return {
+            "name": self.name,
+            "price": self.price,
+            "quantity": self.quantity,
+            "reorder": self.reorder
+        }
 
 class Stock:
 
@@ -78,4 +86,11 @@ class Stock:
         if flag == 0:
             print(f"There are no products low on stock\n")
         else:
-            print(f"\nTotal number of orders to make for stock: {flag}\n")    
+            print(f"\nTotal number of orders to make for stock: {flag}\n")
+
+    def stock_to_dict(self):
+        """Iterates through all products and passes them through to_dict then adds each product dictionary to a list"""
+        saved_stock = []
+        for product in self.stock_items.values():
+            saved_stock.append(product.to_dict())
+        return saved_stock

@@ -1,5 +1,6 @@
 from stock import Stock
 from history import History
+import storage
 
 stock = Stock()
 history = History()
@@ -12,7 +13,7 @@ def get_status():
 
         if ask == "": 
             return "all" 
-        elif ask == "sale" or "delivery":
+        elif ask == "sale" or ask == "delivery":
             return ask
         else:
             print("Please type a valid choice (sale / delivery) or enter for 'all'")
@@ -53,6 +54,8 @@ def get_value(prompt):
         except ValueError:
             print("Please type a whole number")
 
+storage.load_stock(stock)
+
 while True:
 
     choice = input("Please enter one of the following (sell / receive / add / report / reorder / history / quit): ").lower().strip()
@@ -66,6 +69,7 @@ while True:
                 product.down_stock(check_amount)
                 history.add_history("sale", product.name, product.price, check_amount)
                 print("Order Processed and added to history")
+                storage.save_stock(stock.stock_to_dict())
                 if product.level_is_low():
                     print("Warning Stock is Low")
 
@@ -80,6 +84,7 @@ while True:
             product.add_stock(amount_to_add)
             history.add_history("delivery", product.name, product.price, amount_to_add)
             print(f"{amount_to_add} x {product.name} have been added to stock and saved in history")
+            storage.save_stock(stock.stock_to_dict())
 
     elif choice == "add":
 
@@ -88,6 +93,7 @@ while True:
         p_quantity = get_value("quantity")
         p_reorder = get_value("reorder level")
         stock.add_new_product(p_name, p_price, p_quantity, p_reorder)
+        storage.save_stock(stock.stock_to_dict())
 
     elif choice == "report":
         stock.report()
@@ -100,6 +106,7 @@ while True:
         history.print_history(status)    
 
     elif choice == "quit":
+        storage.save_stock(stock.stock_to_dict())
         break
 
     else:
