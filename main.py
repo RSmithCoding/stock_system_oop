@@ -9,83 +9,83 @@ def get_status():
 
     while True:
 
-        ask = input("Please choose which history report or enter for 'all' (sale / delivery): ").lower().strip()
+        ask = input("\nPlease choose which history report or enter for 'all' (sale / delivery): ").lower().strip()
 
         if ask == "": 
             return "all" 
         elif ask == "sale" or ask == "delivery":
             return ask
         else:
-            print("Please type a valid choice (sale / delivery) or enter for 'all'")
+            print("\nPlease type a valid choice (sale / delivery) or enter for 'all'")
 
 def get_name():
 
     while True:
 
-        ask = input("Please enter the product name: ").lower().strip()
+        ask = input("\nPlease enter the product name: ").lower().strip()
         if ask != "":
             return ask
         else:
-            print("Please enter a name for the product.")
+            print("\nPlease enter a name for the product.")
 
 def get_price():
 
     while True:
 
         try:
-            ask = float(input("Please enter the price of the product: "))
+            ask = float(input("\nPlease enter the price of the product: "))
             if ask > 0:
                 return ask
             else:
-                print("Please enter a price above 0")
+                print("\nPlease enter a price above 0")
         except ValueError:
-            print("Please enter the amount in £x.xxp format.")
+            print("\nPlease enter the amount in £x.xxp format.")
 
 def get_value(prompt):
 
     while True:
 
         try:
-            ask = int(input(f"Please enter the {prompt}: "))
+            ask = int(input(f"\nPlease enter the {prompt}: "))
             if ask > 0:
                 return ask
             else:
-                print("Please enter a whole number above 0")
+                print("\nPlease enter a whole number above 0")
         except ValueError:
-            print("Please type a whole number")
+            print("\nPlease type a whole number")
 
 storage.load_stock(stock)
 storage.load_history(history)
 
 while True:
 
-    choice = input("Please enter one of the following (sell / receive / add / report / reorder / history / quit): ").lower().strip()
+    choice = input("\nPlease enter one of the following (sell / receive / add / report / reorder / history / quit): ").lower().strip()
 
     if choice == "sell":
-        check = input("Please enter the name of the product to sell: ").lower().strip()
+        check = input("\nPlease enter the name of the product to sell: ").lower().strip()
         product = stock.check_product(check)
         if product is not None:
             check_amount = get_value("quantity")
             if product.check_stock(check_amount):
                 product.down_stock(check_amount)
                 history.add_history("sale", product.name, product.price, check_amount)
-                print("Order Processed and added to history")
+                print("\nOrder Processed and added to history")
                 storage.save_stock(stock.stock_to_dict())
                 storage.save_history(history.history_to_dict())
                 if product.level_is_low():
-                    print("Warning Stock is Low")
+                    print("\nWarning Stock is Low")
 
             else:
-                print(f"Not enough stock only {product.quantity} left") 
+                print(f"\nNot enough stock only {product.quantity} left") 
 
     elif choice == "receive":
-        check_name = input("Please enter the product name that has been received: ").lower().strip()
+        check_name = input("\nPlease enter the product name that has been received: ").lower().strip()
         product = stock.check_product(check_name)
         if product is not None:
             amount_to_add = get_value("quantity")
             product.add_stock(amount_to_add)
             history.add_history("delivery", product.name, product.price, amount_to_add)
-            print(f"{amount_to_add} x {product.name} have been added to stock and saved in history")
+            print(f"\n{amount_to_add} x {product.name} have been added to stock and saved in history")
             storage.save_stock(stock.stock_to_dict())
             storage.save_history(history.history_to_dict())
 
@@ -111,9 +111,9 @@ while True:
     elif choice == "quit":
         storage.save_stock(stock.stock_to_dict())
         storage.save_history(history.history_to_dict())
-        print("Stock backed up")
-        print("History backed up")
+        print("\nStock backed up")
+        print("\nHistory backed up")
         break
 
     else:
-        print("Sorry please choose from the following (sell / receive / add / report / reorder / history / quit)")  
+        print("\nSorry please choose from the following (sell / receive / add / report / reorder / history / quit)")  

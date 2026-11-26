@@ -57,6 +57,7 @@ class Stock:
         if name in self.stock_items:
             return self.stock_items[name]
         else:
+            print("")
             print(f"Sorry {name} is not an item that is in stock.")
             return None
     
@@ -84,9 +85,9 @@ class Stock:
                 flag += 1        
         
         if flag == 0:
-            print(f"There are no products low on stock\n")
+            print(f"\nThere are no products low on stock")
         else:
-            print(f"\nTotal number of orders to make for stock: {flag}\n")
+            print(f"\nTotal number of orders to make for stock: {flag}")
 
     def stock_to_dict(self):
         """Iterates through all products and passes them through to_dict then adds each product dictionary to a list"""
