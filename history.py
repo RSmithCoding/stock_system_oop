@@ -8,7 +8,6 @@ class HistoryItem:
             self.date = datetime.now()
         else:
             self.date = date
-        self.date = datetime.now()
         self.status = status
         self.name = name
         self.price = float(price)
@@ -39,7 +38,7 @@ class History:
 
         self.history_items = []
 
-    def add_history(self, status, name, price, quantity):
+    def add_history(self, status, name, price, quantity, date=None):
         """Adds a sale to the history list"""
         self.history_items.append(HistoryItem(status, name, price, quantity))
    
@@ -74,6 +73,6 @@ class History:
     def history_to_dict(self):
         """Iterates through all items and passes them through to_dict then adds each product dictionary to a list"""
         saved_history = []
-        for item in self.history_items.values():
+        for item in self.history_items:
             saved_history.append(item.to_dict())
         return saved_history

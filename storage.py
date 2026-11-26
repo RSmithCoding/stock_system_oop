@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 FILE_PATH = "stock_backup.json"
 FILE_PATH2 = "history_backup.json"
@@ -19,7 +20,7 @@ def load_stock(stock):
             for item in loaded_data:
                 stock.add_new_product(item['name'], item['price'], item['quantity'], item['reorder'])
     except (FileNotFoundError, json.JSONDecodeError):
-        print("Back up file not found or currupt, creating a new backup with default data..")
+        print("Stock backup file not found or corrupt, creating a new backup with default data..")
         data = stock.stock_to_dict()
         save_stock(data)
 
@@ -29,5 +30,15 @@ def save_history(data):
     with open(FILE_PATH2, "w") as file:
         json.dump(data, file, indent=4)
 
-def load_history():
-    pass
+def load_history(history):
+    """Check if file exist or corrupt, if exists then loads history from file using add history function"""
+    try:
+        with open(FILE_PATH2, "r") as file:
+            loaded_data = json.load(file)
+            print("Loading history from backup..")
+        for item in loaded_data:
+            saved_date = datetime.fromisoformat(item['date'])
+            history.add_history(item['status'], item['name'], item['price'], item['quantity'], item[saved_date])
+            
+    except (FileNotFoundError, json.JSONDecodeError):
+        print("History Backup file not found or corrupt, a new backup will be created with any history from to-day.")

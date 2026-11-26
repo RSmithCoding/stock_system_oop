@@ -55,6 +55,7 @@ def get_value(prompt):
             print("Please type a whole number")
 
 storage.load_stock(stock)
+storage.load_history(history)
 
 while True:
 
